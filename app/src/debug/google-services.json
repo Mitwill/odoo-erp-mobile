@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "1018703270515",
+    "firebase_url": "https://mitwill-erp-app.firebaseio.com",
+    "project_id": "mitwill-erp-app",
+    "storage_bucket": "mitwill-erp-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018703270515:android:a7d5225fd523f731cf1006",
+        "android_client_info": {
+          "package_name": "com.mitwill.erp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1018703270515-u8birkhkb2ntfcvhgn4585sntk9sptvp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdNBkBhKbPOs_DP7v2NKQvwkPMK-Yevrw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1018703270515-u8birkhkb2ntfcvhgn4585sntk9sptvp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018703270515:android:47ded22ac4ec0104cf1006",
+        "android_client_info": {
+          "package_name": "com.mitwill.erp.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1018703270515-u8birkhkb2ntfcvhgn4585sntk9sptvp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdNBkBhKbPOs_DP7v2NKQvwkPMK-Yevrw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1018703270515-u8birkhkb2ntfcvhgn4585sntk9sptvp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

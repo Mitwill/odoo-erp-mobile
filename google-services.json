@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "378811158568",
+    "firebase_url": "https://mitwillapp.firebaseio.com",
+    "project_id": "mitwillapp",
+    "storage_bucket": "mitwillapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:378811158568:android:911b056a26b6609d",
+        "android_client_info": {
+          "package_name": "com.odoo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "378811158568-vjvpklajl0npunkc8igt9krajcc4ejbu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.odoo",
+            "certificate_hash": "7dab41d3ce32b5068b5745e1d03c09ea22c34f58"
+          }
+        },
+        {
+          "client_id": "378811158568-3rmm2bshaeabt7lc6um5qh64tup1qkhu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrmJrwX0yHFZCTg86ng3TF78a-k21A8Qo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "378811158568-3rmm2bshaeabt7lc6um5qh64tup1qkhu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

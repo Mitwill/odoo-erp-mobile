@@ -1,0 +1,5 @@
+<sync-adapter xmlns:android="http://schemas.android.com/apk/res/android"
+              android:accountType="${applicationId}.auth"
+              android:contentAuthority="${applicationId}.addons.orderlines.sale_order_line"
+              android:supportsUploading="true"
+              android:userVisible="true" />

@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.mitwill.erp">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_SYNC_STATS" />
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS" />
+
+    <application
+        android:name=".App"
+        android:allowBackup="true"
+        android:label="Mitwill ERP"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:largeHeap="true"
+        android:roundIcon="@mipmap/ic_launcher"
+        android:usesCleartextTraffic="true">
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+       <activity android:name=".mitwill.view.BaseActivity"></activity>
+
+        <activity
+            android:name=".addons.priceoffer.PriceOfferOrderActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Base"></activity>
+        <activity android:name=".addons.priceoffer.ListPriceOfferOrdersActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Base"/>
+        <activity android:name=".mitwill.view.ShowImageActivity"
+            android:theme="@style/AppTheme.Base"/>
+        <activity
+            android:name=".addons.colordesignorder.ListColorDesignOrdersActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Base">
+        </activity>
+        <activity android:name=".addons.saleorder.ColorDesignOrderActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Base"/>
+        <activity
+            android:name=".core.account.OdooLogin"
+            android:label="${applicationName}"
+            android:theme="@style/AppTheme.Base"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".core.account.ManageAccounts"
+            android:theme="@style/AppTheme.Base"/>
+        <activity
+            android:name=".OdooActivity"
+            android:configChanges="orientation"
+            android:label="${applicationName}" android:theme="@style/AppTheme.Base"
+            android:screenOrientation="portrait" />
+        <activity android:name="odoo.controls.SearchableItemActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity
+            android:name=".addons.mail.widget.MailDetailDialog"
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
+        <activity
+            android:name=".addons.mail.widget.MailChatterCompose"
+            android:theme="@style/Theme.AppCompat.Light.Dialog" />
+        <activity
+            android:name=".core.account.OdooAccountQuickManage"
+            android:theme="@style/Theme.AppCompat.Light.Dialog"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".core.account.About" />
+        <activity android:name=".core.account.ProfileActivity"
+            android:theme="@style/AppTheme.Base"/> <!-- Reminder Receivers// -->
+        <receiver android:name=".core.utils.reminder.ReminderReceiver" />
+        <receiver android:name=".core.utils.reminder.ReminderActionReceiver" />
+
+        <service android:name=".core.auth.OdooAuthService">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator" />
+        </service>
+
+        <provider
+            android:name=".core.orm.provider.BaseModelProvider"
+            android:authorities="${applicationId}.core.provider.content"
+            android:multiprocess="true" /> <!-- Sync Provider & Service  // -->
+        <provider
+            android:name=".addons.customers.providers.CustomersSyncProvider"
+            android:authorities="${applicationId}.core.provider.content.sync.res_partner"
+            android:label="@string/sync_label_customers"
+            android:multiprocess="true" />
+
+        <service
+            android:name=".addons.customers.services.CustomerSyncService"
+            android:exported="true"
+            android:process=":sync_customer">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/customer_sync_adapter" />
+        </service> <!-- service for the orders -->
+        <service
+            android:name=".addons.saleorder.services.OrderSyncService"
+            android:exported="true"
+            android:process=":sync_orders">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/orders_sync_adapter" />
+        </service>
+        <service
+            android:name=".addons.colordesignorder.service.ColorDesignOrderSyncService"
+            android:exported="false"
+            android:process=":sync_orders">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/color_design_orders_sync_adapter" />
+        </service>
+        <service
+            android:name=".addons.colordesignorderlines.service.ColorDesignOrderLineSyncService"
+            android:exported="false"
+            android:process=":sync_orders">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/color_design_orders_lines_sync_adapter" />
+        </service>
+
+        <provider
+            android:name=".addons.colordesignorder.providers.ColorDesignOrdersSyncProvider"
+            android:authorities="${applicationId}.addons.colordesignorder.color_design_order"
+            android:label="@string/sync_label_orders"
+            android:multiprocess="true" />
+        <provider
+            android:name=".addons.colordesignorderlines.providers.ColorDesignOrderLineProvider"
+            android:authorities="${applicationId}.addons.colordesignorderlines.color_design_order_line"
+            android:label="@string/sync_label_orders"
+            android:multiprocess="true" />
+
+        <provider
+            android:name=".addons.saleorder.providers.OrdersSyncProvider"
+            android:authorities="${applicationId}.addons.saleorder.sale_order"
+            android:label="@string/sync_label_orders"
+            android:multiprocess="true" />
+
+        <activity
+            android:name=".addons.customers.CustomerDetails"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".addons.saleorder.SaleOrderActivity"
+            android:configChanges="orientation"
+            android:parentActivityName=".addons.saleorder.CustomerOrdersActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Base" /> <!-- product sync and adapter -->
+        <provider
+            android:name=".addons.products.providers.ProductProvider"
+            android:authorities="${applicationId}.addons.products.product_tasks"
+            android:label="Project Tasks"
+            android:multiprocess="true" />
+
+        <service
+            android:name=".addons.products.services.ProductSyncService"
+            android:exported="true"
+            android:process=":sync_product">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/product_sync_adapter" />
+        </service> <!-- stock sync and adapter -->
+        <provider
+            android:name=".addons.stocks.providers.StocksProvider"
+            android:authorities="${applicationId}.addons.stocks.incoterms"
+            android:label="Stock Tasks"
+            android:multiprocess="true" />
+
+        <service
+            android:name=".addons.stocks.services.StockSyncService"
+            android:exported="true"
+            android:process=":sync_stocks">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/stocks_sync_adapter" />
+        </service> <!-- orderline sync and adapter -->
+        <provider
+            android:name=".addons.saleorderlines.providers.OrderLineProvider"
+            android:authorities="${applicationId}.addons.saleorderlines.sale_order_line"
+            android:label="OrderLines Tasks"
+            android:multiprocess="true" />
+
+        <service
+            android:name=".addons.saleorderlines.services.OrderLineSyncService"
+            android:exported="true"
+            android:process=":sync_order_line">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/orders_lines_sync_adapter" />
+        </service>
+
+        <activity
+            android:name=".addons.saleorderlines.SaleOrderLineActivity"
+            android:configChanges="orientation"
+            android:label="@string/title_activity_sale_order_line"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".addons.QRScannerActivity"
+            android:configChanges="orientation"
+            android:parentActivityName=".addons.saleorder.SaleOrderActivity"
+            android:screenOrientation="portrait"
+            android:label="Scan QR code"
+            android:theme="@style/AppTheme.Base" />
+        <activity
+            android:name=".addons.saleorder.SuccessOrderActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Base"/>
+        <activity
+            android:name=".addons.saleorder.CustomerOrdersActivity"
+            android:configChanges="orientation"
+            android:parentActivityName=".OdooActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Base" /> <!-- App close service -->
+        <service
+            android:name=".services.ExtraLocalDataRemoveService"
+            android:stopWithTask="false" />
+
+        <activity
+            android:name=".addons.saleorder.ViewOrderActivity"
+            android:parentActivityName=".OdooActivity"
+            android:theme="@style/AppTheme.Base" />
+
+        <!-- <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="ed201cb23acd55a89003a0d2c920bb0ad53f0d44" /> -->
+
+        <service
+            android:name="com.google.android.gms.measurement.AppMeasurementService"
+            android:enabled="true"
+            android:exported="false" />
+
+        <receiver
+            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.measurement.UPLOAD" />
+            </intent-filter>
+        </receiver>
+
+        <activity
+            android:name=".addons.saleorder.OrdersActivity"
+            android:configChanges="orientation"
+            android:parentActivityName=".OdooActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Base" />
+        <activity
+            android:name=".addons.saleorder.ProductChangeActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Base" />
+        <activity android:name=".mitwill.view.DisplayImageAttachmentsActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+        <service
+            android:name=".mitwill.services.ImageUploadService"/>
+
+   <!--     <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/fileprovider" />
+        </provider>-->
+        <activity android:name=".mitwill.view.ImageAttachmentsActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+        <service
+            android:name=".services.FetchProductsService"/>
+     </application>
+
+</manifest>

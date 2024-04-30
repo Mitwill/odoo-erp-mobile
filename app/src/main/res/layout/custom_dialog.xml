@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <CheckBox
+        android:id="@+id/cb2000m"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginTop="20dp"
+        android:hint="dig_print_2000_m"
+        android:onClick="onCheckBoxClick"
+        android:text="2000 M"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <CheckBox
+        android:id="@+id/cb2m"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:hint="dig_print_2_m"
+        android:onClick="onCheckBoxClick"
+        android:text="2 M"
+        app:layout_constraintStart_toStartOf="@+id/cb2000m"
+        app:layout_constraintTop_toBottomOf="@+id/cb10m" />
+
+    <CheckBox
+        android:id="@+id/cb500m"
+        android:layout_width="136dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:hint="dig_print_500_m"
+        android:onClick="onCheckBoxClick"
+        android:text="500 M"
+        app:layout_constraintStart_toStartOf="@+id/cb1000m"
+        app:layout_constraintTop_toBottomOf="@+id/cb1000m" />
+
+    <CheckBox
+        android:id="@+id/cb50m"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:hint="dig_print_50_m"
+        android:onClick="onCheckBoxClick"
+        android:text="50 M"
+        app:layout_constraintStart_toStartOf="@+id/cb2000m"
+        app:layout_constraintTop_toBottomOf="@+id/cb200m" />
+
+    <CheckBox
+        android:id="@+id/cb200m"
+        android:layout_width="136dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:hint="dig_print_200_m"
+        android:onClick="onCheckBoxClick"
+        android:text="200 M"
+        app:layout_constraintStart_toStartOf="@+id/cb2000m"
+        app:layout_constraintTop_toBottomOf="@+id/cb500m" />
+
+    <CheckBox
+        android:id="@+id/cb10m"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+
+        android:hint="dig_print_10_m"
+        android:onClick="onCheckBoxClick"
+        android:text="10 M"
+        app:layout_constraintStart_toStartOf="@+id/cb2000m"
+        app:layout_constraintTop_toBottomOf="@+id/cb50m" />
+
+    <CheckBox
+        android:id="@+id/cb1000m"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:hint="dig_print_1000_m"
+        android:onClick="onCheckBoxClick"
+        android:text="1000 M"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/cb2000m"
+        app:layout_constraintTop_toBottomOf="@+id/cb2000m" />
+
+    <Button
+        android:id="@+id/btnOk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:text="Create order"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnCancel"
+        app:layout_constraintTop_toBottomOf="@+id/cb2m" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="30dp"
+        android:text="Cancel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cb2m" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
+        android:text="select digital pricing"
+        android:textColor="@color/body_text_1"
+        android:textSize="@dimen/_15sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        tools:layout_editor_absoluteX="-57dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <ImageView
+        android:id="@+id/sale_order_line_item_img_edit"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginEnd="2dp"
+        android:padding="@dimen/_4sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/sale_order_line_item_img_cancel"
+        app:layout_constraintEnd_toStartOf="@+id/sale_order_line_item_img_cancel"
+        app:layout_constraintTop_toTopOf="@+id/sale_order_line_item_img_cancel"
+        app:srcCompat="@drawable/ic_edit_grey" />
+
+    <TextView
+        android:id="@+id/sale_order_item_tv_product_comment"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:paddingLeft="@dimen/_5sdp"
+        android:maxLines="10"
+        android:text="@string/label_comment"
+        android:textColor="@color/colorDarkGrey"
+        android:textSize="@dimen/_16sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/sale_order_line_ll_design_code"
+        app:layout_constraintTop_toBottomOf="@+id/sale_order_line_ll_design_code" />
+
+
+    <TextView
+        android:id="@+id/sale_order_item_tv_product"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:maxLines="2"
+        android:text="Faliano"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/_18sdp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--
+    cancel icon
+    -->
+    <ImageView
+        android:id="@+id/sale_order_line_item_img_cancel"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginEnd="2dp"
+        android:padding="@dimen/_4sdp"
+        android:src="@mipmap/ic_delete"
+        app:layout_constraintBottom_toBottomOf="@+id/sale_order_line_item_img_product_info"
+        app:layout_constraintEnd_toStartOf="@+id/sale_order_line_item_img_product_info"
+        app:layout_constraintTop_toTopOf="@+id/sale_order_line_item_img_product_info" />
+
+    <!--
+    product info icon
+   -->
+    <ImageView
+        android:id="@+id/sale_order_line_item_img_product_info"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginEnd="2dp"
+        android:padding="@dimen/_6sdp"
+        android:src="@android:drawable/ic_menu_info_details"
+        android:tint="@color/colorDarkGrey"
+        app:layout_constraintBottom_toBottomOf="@+id/sale_order_line_ll_quantity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/sale_order_line_ll_quantity" />
+
+    <!--
+    Handling the Quantities
+    -->
+    <LinearLayout
+        android:id="@+id/sale_order_line_ll_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@+id/sale_order_item_tv_product">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/_5sdp"
+            android:text="Qty :"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/sale_order_line_item_tv_qty"
+            app:layout_constraintEnd_toStartOf="@+id/sale_order_line_item_tv_qty"
+            app:layout_constraintTop_toTopOf="@+id/sale_order_line_item_tv_qty" />
+
+        <TextView
+            android:id="@+id/sale_order_line_item_tv_qty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_5sdp"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="0.0"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_16sdp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </LinearLayout>
+
+    <!--
+    Handling the Design Code
+    -->
+    <LinearLayout
+        android:id="@+id/sale_order_line_ll_design_code"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="@+id/sale_order_line_ll_quantity"
+        app:layout_constraintTop_toBottomOf="@+id/sale_order_line_ll_quantity">
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/_5sdp"
+            android:text="@string/label_design_code"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/_16sdp" />
+
+
+        <TextView
+            android:id="@+id/sale_order_item_tv_design_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_4sdp"
+            android:layout_marginRight="@dimen/_4sdp"
+            android:gravity="center_vertical"
+            android:text="@string/lable_sample_code"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_16sdp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
