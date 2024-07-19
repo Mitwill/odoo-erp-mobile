@@ -12,7 +12,7 @@ android {
             storePassword 'android'
         }
     }
-    compileSdkVersion 29
+    compileSdkVersion 33
     buildToolsVersion '28.0.3'
     defaultConfig {
         useLibrary 'org.apache.http.legacy'
