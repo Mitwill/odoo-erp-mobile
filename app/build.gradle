@@ -20,7 +20,7 @@ android {
         manifestPlaceholders = [applicationName: "Mitwill ERP"]
         applicationId "com.mitwill.erp"
         minSdkVersion 21
-        targetSdkVersion 33
+        targetSdkVersion 34
         versionCode appVersionCode.toInteger()
         versionName appVersionName
     }
