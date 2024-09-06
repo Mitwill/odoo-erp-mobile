@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SyncStatusObserver;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -45,6 +46,8 @@ import com.mitwill.erp.core.service.receivers.ISyncFinishReceiver;
 import com.mitwill.erp.core.support.OUser;
 import com.mitwill.erp.core.utils.OResource;
 import com.mitwill.erp.mitwill.services.NetworkStateReceiver;
+
+import java.util.Objects;
 
 
 public abstract class BaseFragment extends Fragment implements IBaseFragment, NetworkStateReceiver.NetworkStateReceiverListener {
@@ -240,11 +243,23 @@ public abstract class BaseFragment extends Fragment implements IBaseFragment, Ne
         }
 
         if (mContext instanceof OdooActivity) {
-            parent().registerReceiver(syncFinishReceiver,
-                    new IntentFilter(ISyncFinishReceiver.SYNC_FINISH));
+//            parent().registerReceiver(syncFinishReceiver,
+//                    new IntentFilter(ISyncFinishReceiver.SYNC_FINISH));
+            if (Build.VERSION.SDK_INT >= 34 && Objects.requireNonNull(getActivity()).getApplicationContext().getApplicationInfo().targetSdkVersion >= 34) {
+                parent().registerReceiver(syncFinishReceiver, new IntentFilter(ISyncFinishReceiver.SYNC_FINISH),parent().RECEIVER_EXPORTED);
+            }else{
+                parent().registerReceiver(syncFinishReceiver, new IntentFilter(ISyncFinishReceiver.SYNC_FINISH));
+            }
         } else {
-            mContext.registerReceiver(syncFinishReceiver,
-                    new IntentFilter(ISyncFinishReceiver.SYNC_FINISH));
+//            mContext.registerReceiver(syncFinishReceiver,
+//                    new IntentFilter(ISyncFinishReceiver.SYNC_FINISH));
+            if (Build.VERSION.SDK_INT >= 34 && Objects.requireNonNull(getActivity()).getApplicationContext().getApplicationInfo().targetSdkVersion >= 34) {
+                mContext.registerReceiver(syncFinishReceiver,
+                        new IntentFilter(ISyncFinishReceiver.SYNC_FINISH),parent().RECEIVER_EXPORTED);
+            }else{
+                mContext.registerReceiver(syncFinishReceiver,
+                        new IntentFilter(ISyncFinishReceiver.SYNC_FINISH));
+            }
         }
     }
 
