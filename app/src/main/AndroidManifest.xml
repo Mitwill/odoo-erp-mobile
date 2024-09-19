@@ -29,6 +29,10 @@
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.ACCESS_ADSERVICES_ATTRIBUTION" />
 
+    <!--  if your minSdkVersion < 16, this would make usable on minSdkVersion >= 14-->
+    <uses-sdk
+        tools:overrideLibrary="io.sentry.android"/>
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -335,6 +339,20 @@
             android:theme="@style/AppTheme"/>
         <service
             android:name=".services.FetchProductsService"/>
-     </application>
+
+        <!--    NOTE: Replace the test DSN below with YOUR OWN DSN to see the events from this app in your Sentry project/dashboard-->
+        <meta-data android:name="io.sentry.dsn" android:value="https://b84828fcda56413bafe8169fd88131f5@glitchtip.mitwill.com/2" />
+        <!--    how to enable Sentry's debug mode-->
+        <meta-data android:name="io.sentry.debug" android:value="${sentryDebug}" />
+        <!--    how to set an environment-->
+        <meta-data android:name="io.sentry.environment" android:value="${sentryEnvironment}" />
+
+        <!-- Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+      We recommend adjusting this value in production. -->
+        <meta-data android:name="io.sentry.traces.sample-rate" android:value="1.0" />
+        <!-- Enable user interaction tracing to capture transactions for various UI events (such as clicks or scrolls). -->
+        <meta-data android:name="io.sentry.traces.user-interaction.enable" android:value="true" />
+
+    </application>
 
 </manifest>

@@ -26,7 +26,7 @@ android {
     }
     buildTypes {
         debug {
-            manifestPlaceholders = [applicationName: "TEST Mitwill ERP"]
+            manifestPlaceholders = [applicationName: "TEST Mitwill ERP",sentryEnvironment: "debug",sentryDebug: "true"]
             applicationIdSuffix ".debug"
             minifyEnabled false
             shrinkResources false
@@ -36,6 +36,7 @@ android {
             resValue "string", "server_database_name", "mitwill_test_new_db"
         }
         release {
+            manifestPlaceholders = [sentryEnvironment: "release",sentryDebug: "false"]
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -101,4 +102,8 @@ dependencies {
 
     // Recommended: Add the Google Analytics SDK.
     implementation 'com.google.firebase:firebase-analytics:18.0.0'
+
+    //sentry-android for tracking
+//    implementation 'io.sentry:sentry-android:4.2.0'
+    implementation 'io.sentry:sentry-android:6.8.0'
 }
