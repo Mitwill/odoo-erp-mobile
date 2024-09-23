@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SyncStatusObserver;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -77,7 +78,13 @@ public abstract class BaseFragment extends Fragment implements IBaseFragment, Ne
         try {
             networkStateReceiver = new NetworkStateReceiver();
             networkStateReceiver.addListener(this);
-            getActivity().registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
+//            getActivity().registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                Objects.requireNonNull(getActivity()).registerReceiver(networkStateReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION),getActivity().RECEIVER_EXPORTED);
+            }else {
+                Objects.requireNonNull(getActivity()).registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -246,7 +253,7 @@ public abstract class BaseFragment extends Fragment implements IBaseFragment, Ne
 //            parent().registerReceiver(syncFinishReceiver,
 //                    new IntentFilter(ISyncFinishReceiver.SYNC_FINISH));
             if (Build.VERSION.SDK_INT >= 34 && Objects.requireNonNull(getActivity()).getApplicationContext().getApplicationInfo().targetSdkVersion >= 34) {
-                parent().registerReceiver(syncFinishReceiver, new IntentFilter(ISyncFinishReceiver.SYNC_FINISH),parent().RECEIVER_EXPORTED);
+                parent().registerReceiver(syncFinishReceiver, new IntentFilter(ISyncFinishReceiver.SYNC_FINISH),getActivity().RECEIVER_EXPORTED);
             }else{
                 parent().registerReceiver(syncFinishReceiver, new IntentFilter(ISyncFinishReceiver.SYNC_FINISH));
             }
@@ -255,7 +262,7 @@ public abstract class BaseFragment extends Fragment implements IBaseFragment, Ne
 //                    new IntentFilter(ISyncFinishReceiver.SYNC_FINISH));
             if (Build.VERSION.SDK_INT >= 34 && Objects.requireNonNull(getActivity()).getApplicationContext().getApplicationInfo().targetSdkVersion >= 34) {
                 mContext.registerReceiver(syncFinishReceiver,
-                        new IntentFilter(ISyncFinishReceiver.SYNC_FINISH),parent().RECEIVER_EXPORTED);
+                        new IntentFilter(ISyncFinishReceiver.SYNC_FINISH),getActivity().RECEIVER_EXPORTED);
             }else{
                 mContext.registerReceiver(syncFinishReceiver,
                         new IntentFilter(ISyncFinishReceiver.SYNC_FINISH));
