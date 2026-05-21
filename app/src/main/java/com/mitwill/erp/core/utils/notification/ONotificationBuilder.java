@@ -218,7 +218,7 @@ public class ONotificationBuilder {
             intent.setAction(action.getAction());
             intent.putExtras(action.getExtras());
             PendingIntent pendingIntent = PendingIntent.getActivity(mContext, 0, intent,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
+                    PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
             mNotificationBuilder.addAction(action.getIcon(),
                     action.getTitle(), pendingIntent);
         }
@@ -226,7 +226,7 @@ public class ONotificationBuilder {
 
     private void _setResultIntent() {
         mNotificationResultIntent = PendingIntent.getActivity(mContext, 0,
-                resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                resultIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         mNotificationBuilder.setDefaults(Notification.DEFAULT_ALL);
         mNotificationBuilder.setContentIntent(mNotificationResultIntent);
     }

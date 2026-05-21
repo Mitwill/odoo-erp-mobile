@@ -80,7 +80,8 @@ public abstract class BaseFragment extends Fragment implements IBaseFragment, Ne
             networkStateReceiver.addListener(this);
 //            getActivity().registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (Build.VERSION.SDK_INT >= 34
+                    && Objects.requireNonNull(getActivity()).getApplicationContext().getApplicationInfo().targetSdkVersion >= 34) {
                 Objects.requireNonNull(getActivity()).registerReceiver(networkStateReceiver, new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION),getActivity().RECEIVER_EXPORTED);
             }else {
                 Objects.requireNonNull(getActivity()).registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
