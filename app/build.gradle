@@ -33,11 +33,9 @@ android {
             shrinkResources false
             signingConfig signingConfigs.config
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-//            resValue "string", "server_url", "https://test-eos.mitwilltextiles.com"
-//            resValue "string", "server_url", "https://test-eos.mitwill.com"
-            resValue "string", "server_url", "https://eos.mitwilltextiles.com"
+            resValue "string", "server_url", "https://test-eos.mitwill.com"
+            resValue "string", "server_database_name", "mitwill_prod_copy"
 //            resValue "string", "server_database_name", "mitwill_test_new_db"
-            resValue "string", "server_database_name", "mitwill_prod"
         }
         release {
             manifestPlaceholders = [sentryEnvironment: "release",sentryDebug: "false"]
