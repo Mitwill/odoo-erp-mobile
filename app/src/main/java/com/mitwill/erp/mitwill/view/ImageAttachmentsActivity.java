@@ -52,6 +52,7 @@ import pl.aprilapps.easyphotopicker.EasyImage;
 public class ImageAttachmentsActivity extends AppCompatActivity implements View.OnClickListener, EasyImage.Callbacks {
     private static final String TAG = ImageAttachmentsActivity.class.getSimpleName();
     public static final int PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
+    public static final int PERMISSIONS_REQUEST_READ_MEDIA_IMAGES = 125;
     private static final int PERMISSIONS_REQUEST_CAMERA = 2;
 
     protected RecyclerView recyclerView;
@@ -204,6 +205,9 @@ public class ImageAttachmentsActivity extends AppCompatActivity implements View.
                     Toast.makeText(this, "You can not select more than 3 images", Toast.LENGTH_SHORT).show();
                     return false;
                 }
+//                if (checkPermissionREAD_EXTERNAL_STORAGE(this)) {
+//                    EasyImage.openGallery(this, 0);
+//                }
                 if (checkPermissionREAD_EXTERNAL_STORAGE(this)) {
                     EasyImage.openGallery(this, 0);
                 }
@@ -217,48 +221,77 @@ public class ImageAttachmentsActivity extends AppCompatActivity implements View.
     public boolean checkPermissionREAD_EXTERNAL_STORAGE(final Context context) {
 
         int currentAPIVersion = Build.VERSION.SDK_INT;
-        if (currentAPIVersion >= Build.VERSION_CODES.M) {
+        if (currentAPIVersion >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(context,
-                    Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(
                         (Activity) context,
-                        Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                        Manifest.permission.READ_MEDIA_IMAGES)) {
                     ActivityCompat.requestPermissions((Activity) context,
-                            new String[] {  Manifest.permission.READ_EXTERNAL_STORAGE },
-                            PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-                 } else {
-                    ActivityCompat
-                            .requestPermissions(
-                                    (Activity) context,
-                                    new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
-                                    PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-                }
-                return false;
-            }
-            if (ContextCompat.checkSelfPermission(context,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(
-                        (Activity) context,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                    ActivityCompat.requestPermissions((Activity) context,
-                            new String[] {  Manifest.permission.READ_EXTERNAL_STORAGE },
-                            PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                            new String[] {  Manifest.permission.READ_MEDIA_IMAGES },
+                            PERMISSIONS_REQUEST_READ_MEDIA_IMAGES);
                 } else {
                     ActivityCompat
                             .requestPermissions(
                                     (Activity) context,
-                                    new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE },
-                                    PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                                    new String[] { Manifest.permission.READ_MEDIA_IMAGES },
+                                    PERMISSIONS_REQUEST_READ_MEDIA_IMAGES);
                 }
                 return false;
-            }
-            else {
+            } else {
                 return true;
             }
-
         } else {
             return true;
         }
+
+
+
+
+
+//        if (currentAPIVersion >= Build.VERSION_CODES.M) {
+//
+//            if (ContextCompat.checkSelfPermission(context,
+//                    Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//                if (ActivityCompat.shouldShowRequestPermissionRationale(
+//                        (Activity) context,
+//                        Manifest.permission.READ_EXTERNAL_STORAGE)) {
+//                    ActivityCompat.requestPermissions((Activity) context,
+//                            new String[] {  Manifest.permission.READ_EXTERNAL_STORAGE },
+//                            PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+//                } else {
+//                    ActivityCompat
+//                            .requestPermissions(
+//                                    (Activity) context,
+//                                    new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
+//                                    PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+//                }
+//                return false;
+//            }
+//            if (ContextCompat.checkSelfPermission(context,
+//                    Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//                if (ActivityCompat.shouldShowRequestPermissionRationale(
+//                        (Activity) context,
+//                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+//                    ActivityCompat.requestPermissions((Activity) context,
+//                            new String[] {  Manifest.permission.READ_EXTERNAL_STORAGE },
+//                            PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+//                } else {
+//                    ActivityCompat
+//                            .requestPermissions(
+//                                    (Activity) context,
+//                                    new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE },
+//                                    PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+//                }
+//                return false;
+//            }
+//            else {
+//                return true;
+//            }
+//
+//        } else {
+//            return true;
+//        }
     }
 
     private void requestCameraPermission() {
@@ -302,6 +335,11 @@ public class ImageAttachmentsActivity extends AppCompatActivity implements View.
             }
             break;
             case PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    EasyImage.openGallery(this, 0);
+                }
+                break;
+            case PERMISSIONS_REQUEST_READ_MEDIA_IMAGES:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     EasyImage.openGallery(this, 0);
                 }

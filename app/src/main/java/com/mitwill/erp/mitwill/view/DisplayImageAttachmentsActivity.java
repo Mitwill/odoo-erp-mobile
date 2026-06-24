@@ -65,6 +65,7 @@ public class DisplayImageAttachmentsActivity extends OdooCompatActivity implemen
     private static final int CAMERA_REQUEST = 1888;
     private static final int SELECT_IMAGE = 1889;
     public static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
+    public static final int PERMISSIONS_REQUEST_READ_MEDIA_IMAGES = 125;
 
     private Boolean isPermissionEnabled = false;
     public static AttachedImages attachedImages= null;
@@ -305,48 +306,71 @@ public class DisplayImageAttachmentsActivity extends OdooCompatActivity implemen
     public boolean checkPermissionREAD_EXTERNAL_STORAGE(final Context context) {
 
         int currentAPIVersion = Build.VERSION.SDK_INT;
-        if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
+        if (currentAPIVersion >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(context,
-                    Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(
                         (Activity) context,
-                        Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                    showDialog("External storage", context,
-                            Manifest.permission.READ_EXTERNAL_STORAGE);
-
+                        Manifest.permission.READ_MEDIA_IMAGES)) {
+                    ActivityCompat.requestPermissions((Activity) context,
+                            new String[] {  Manifest.permission.READ_MEDIA_IMAGES },
+                            PERMISSIONS_REQUEST_READ_MEDIA_IMAGES);
                 } else {
                     ActivityCompat
                             .requestPermissions(
                                     (Activity) context,
-                                    new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
-                                    MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+                                    new String[] { Manifest.permission.READ_MEDIA_IMAGES },
+                                    PERMISSIONS_REQUEST_READ_MEDIA_IMAGES);
                 }
                 return false;
-            }
-            if (ContextCompat.checkSelfPermission(context,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                if (ActivityCompat.shouldShowRequestPermissionRationale(
-                        (Activity) context,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                    showDialog("External storage", context,
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-                } else {
-                    ActivityCompat
-                            .requestPermissions(
-                                    (Activity) context,
-                                    new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE },
-                                    MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-                }
-                return false;
-            }
-            else {
+            } else {
                 return true;
             }
-
         } else {
             return true;
         }
+        // if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
+        //     if (ContextCompat.checkSelfPermission(context,
+        //             Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        //         if (ActivityCompat.shouldShowRequestPermissionRationale(
+        //                 (Activity) context,
+        //                 Manifest.permission.READ_EXTERNAL_STORAGE)) {
+        //             showDialog("External storage", context,
+        //                     Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        //         } else {
+        //             ActivityCompat
+        //                     .requestPermissions(
+        //                             (Activity) context,
+        //                             new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
+        //                             MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+        //         }
+        //         return false;
+        //     }
+        //     if (ContextCompat.checkSelfPermission(context,
+        //             Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        //         if (ActivityCompat.shouldShowRequestPermissionRationale(
+        //                 (Activity) context,
+        //                 Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+        //             showDialog("External storage", context,
+        //                     Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        //         } else {
+        //             ActivityCompat
+        //                     .requestPermissions(
+        //                             (Activity) context,
+        //                             new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE },
+        //                             MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+        //         }
+        //         return false;
+        //     }
+        //     else {
+        //         return true;
+        //     }
+
+        // } else {
+        //     return true;
+        // }
     }
     public void showDialog(final String msg, final Context context,
                            final String permission) {
@@ -393,6 +417,11 @@ public class DisplayImageAttachmentsActivity extends OdooCompatActivity implemen
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
+            case PERMISSIONS_REQUEST_READ_MEDIA_IMAGES:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openGallery();
+                }
+                break;
             case MY_PERMISSIONS_REQUEST_CAMERA: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0

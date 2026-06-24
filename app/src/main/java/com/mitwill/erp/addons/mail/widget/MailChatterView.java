@@ -28,6 +28,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -101,7 +102,14 @@ public class MailChatterView extends LinearLayout implements
         }
         setOrientation(VERTICAL);
         mailMessage = new MailMessage(context, null);
-        mContext.registerReceiver(dataChangeReceiver, new IntentFilter("mail.message.update"));
+        if (Build.VERSION.SDK_INT >= 34) {
+            mContext.registerReceiver(dataChangeReceiver,
+                    new IntentFilter("mail.message.update"),
+                    Context.RECEIVER_NOT_EXPORTED);
+        } else {
+            mContext.registerReceiver(dataChangeReceiver,
+                    new IntentFilter("mail.message.update"));
+        }
     }
 
     public void generateView() {

@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mitwill.erp">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -20,7 +24,14 @@
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
+    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.ACCESS_ADSERVICES_ATTRIBUTION" />
+
+    <!--  if your minSdkVersion < 16, this would make usable on minSdkVersion >= 14-->
+    <uses-sdk
+        tools:overrideLibrary="io.sentry.android"/>
 
     <application
         android:name=".App"
@@ -56,6 +67,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Base"/>
         <activity
+            android:exported="true"
             android:name=".core.account.OdooLogin"
             android:label="${applicationName}"
             android:theme="@style/AppTheme.Base"
@@ -91,7 +103,8 @@
         <receiver android:name=".core.utils.reminder.ReminderReceiver" />
         <receiver android:name=".core.utils.reminder.ReminderActionReceiver" />
 
-        <service android:name=".core.auth.OdooAuthService">
+        <service android:name=".core.auth.OdooAuthService"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
@@ -285,7 +298,8 @@
 
         <receiver
             android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.android.gms.measurement.UPLOAD" />
             </intent-filter>
@@ -326,6 +340,20 @@
             android:theme="@style/AppTheme"/>
         <service
             android:name=".services.FetchProductsService"/>
-     </application>
+
+        <!--    NOTE: Replace the test DSN below with YOUR OWN DSN to see the events from this app in your Sentry project/dashboard-->
+        <meta-data android:name="io.sentry.dsn" android:value="https://b84828fcda56413bafe8169fd88131f5@glitchtip.mitwill.com/2" />
+        <!--    how to enable Sentry's debug mode-->
+        <meta-data android:name="io.sentry.debug" android:value="${sentryDebug}" />
+        <!--    how to set an environment-->
+        <meta-data android:name="io.sentry.environment" android:value="${sentryEnvironment}" />
+
+        <!-- Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+      We recommend adjusting this value in production. -->
+        <meta-data android:name="io.sentry.traces.sample-rate" android:value="1.0" />
+        <!-- Enable user interaction tracing to capture transactions for various UI events (such as clicks or scrolls). -->
+        <meta-data android:name="io.sentry.traces.user-interaction.enable" android:value="true" />
+
+    </application>
 
 </manifest>
